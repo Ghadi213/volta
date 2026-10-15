@@ -208,19 +208,17 @@ if page == "1. ⚡ Forecast & Device Optimizer":
 
   with col_chart:
     st.subheader("📈 Predicted Electricity Price (Next 24 Hours)")
-    chart_df = df_day.rename(
-        columns={"Price_EUR": model_choice, "Actual_EUR": "Actual price"}
-    )
+    # product view: show the forecast only (the real price is not known in advance)
+    chart_df = df_day.rename(columns={"Price_EUR": model_choice})
     fig_line = px.line(
         chart_df,
         x="Hour_Label",
-        y=[model_choice, "Actual price"],
+        y=[model_choice],
         markers=True,
-        color_discrete_sequence=["#10b981", "#9ca3af"],
+        color_discrete_sequence=["#10b981"],
         labels={"value": "Price (€/MWh)", "Hour_Label": "Hour (UTC)", "variable": ""},
     )
     fig_line.update_traces(line_width=3, selector={"name": model_choice})
-    fig_line.update_traces(line_dash="dash", line_width=2, selector={"name": "Actual price"})
     fig_line.update_layout(
         template="plotly_dark",
         paper_bgcolor="rgba(0,0,0,0)",
