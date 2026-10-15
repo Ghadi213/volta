@@ -338,6 +338,8 @@ elif page == "2. 📊 Forecast Insights":
           "High Price": "#ef4444",
       },
       labels={"Price_EUR": "Price (€/MWh)", "Hour_Label": "Hour (UTC)"},
+      # keep the hours in time order (00:00 -> 23:00), not grouped by colour
+      category_orders={"Hour_Label": [f"{h:02d}:00" for h in range(24)]},
   )
   fig_bar.update_layout(
       template="plotly_dark",
