@@ -3,6 +3,7 @@ pandas==2.2.3
 numpy==1.26.4
 altair==6.3.0
 plotly==6.0.0
-tensorflow-cpu==2.16.2
+tensorflow-cpu==2.18.0
+keras==3.11.3
 scikit-learn==1.6.1
 joblib==1.4.2
