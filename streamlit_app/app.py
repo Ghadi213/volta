@@ -147,8 +147,6 @@ BOLT_ICON = (
 LOGO_FILE = Path(__file__).parent / "assets" / "volta_logo.png"
 st.sidebar.image(str(LOGO_FILE), width="stretch")
 
-st.sidebar.success("🟢 Final LSTM model loaded")
-
 st.sidebar.markdown("---")
 
 page = st.sidebar.radio(
@@ -400,7 +398,7 @@ elif page == "3. ℹ️ About VOLTA":
   ])
 
   st.subheader("Meet the team")
-  team = ["Rahaf Alrehaili", "Ayah Qalo", "Mohammed Alyami", "Ghadi Alrashdi"]
+  team = ["Rahaf Alrehaili", "Ghadi Alrashdi", "Ayah Qalo", "Mohammed Alyami"]
   for col, name in zip(st.columns(len(team)), team):
     initials = "".join(part[0] for part in name.split())
     with col, st.container(border=True):

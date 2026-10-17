@@ -140,4 +140,4 @@ It opens at http://localhost:8501. The first load takes a few seconds while the 
 
 ## Team
 
-Rahaf Alrehaili · Ayah Qalo · Mohammed Alyami · Ghadi Alrashdi
+Rahaf Alrehaili · Ghadi Alrashdi · Ayah Qalo · Mohammed Alyami
