@@ -1,4 +1,5 @@
 import datetime
+from pathlib import Path
 
 import numpy as np
 import pandas as pd
@@ -143,7 +144,8 @@ BOLT_ICON = (
     '<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 28 40">'
     '<polygon points="15,2 3,23 12,23 9,38 24,15 15,15 19,2" fill="#8B5CF6"/></svg>'
 )
-st.sidebar.image(BOLT_ICON, width=40)
+LOGO_FILE = Path(__file__).parent / "assets" / "volta_logo.png"
+st.sidebar.image(str(LOGO_FILE), width="stretch")
 st.sidebar.title("VOLTA System")
 
 st.sidebar.success("🟢 Final LSTM model loaded")
