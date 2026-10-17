@@ -146,7 +146,6 @@ BOLT_ICON = (
 )
 LOGO_FILE = Path(__file__).parent / "assets" / "volta_logo.png"
 st.sidebar.image(str(LOGO_FILE), width="stretch")
-st.sidebar.title("VOLTA System")
 
 st.sidebar.success("🟢 Final LSTM model loaded")
 
