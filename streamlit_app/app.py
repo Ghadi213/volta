@@ -5,7 +5,7 @@ import pandas as pd
 import plotly.express as px
 import streamlit as st
 
-from volta import cache, forecast as fc
+from volta import cache
 
 # ---------------------------------------------------------
 # Page Configuration & High-End Dark Styling
@@ -166,7 +166,10 @@ st.sidebar.caption("© 2026 VOLTA · Smart Electricity Price Forecasting")
 # PAGE 1: FORECAST & DEVICE OPTIMIZER
 # =========================================================
 if page == "1. ⚡ Forecast & Device Optimizer":
-  st.title("⚡ Predict Energy. Plan Smarter.")
+  # same purple bolt as the sidebar
+  with st.container(horizontal=True, vertical_alignment="center", gap="small"):
+    st.image(BOLT_ICON, width=44)
+    st.title("Predict Energy. Plan Smarter.", anchor=False)
   st.markdown(
       "Forecast Spain's electricity prices, and find the best time to run your"
       " devices."
@@ -351,38 +354,80 @@ elif page == "2. 📊 Forecast Insights":
 # PAGE 3: ABOUT VOLTA
 # =========================================================
 elif page == "3. ℹ️ About VOLTA":
-  st.title("ℹ️ About VOLTA Project")
 
-  test = all_predictions[all_predictions["split"] == "Test (2018)"]
-  scores = fc.score(test)
-  lstm_mae = scores.loc["Final LSTM", "MAE"]
-  lag24_mae = scores.loc["Lag-24 (same hour yesterday)", "MAE"]
-  gain = scores.loc["Lag-24 (same hour yesterday)", "LSTM improvement (%)"]
+  def info_cards(cards):
+    """A row of equal-height cards: (icon, title, text)."""
+    for col, (icon, title, text) in zip(st.columns(len(cards)), cards):
+      with col, st.container(border=True, height="stretch"):
+        st.markdown(f"### {icon}")
+        st.markdown(f"**{title}**")
+        st.caption(text)
 
-  st.markdown(f"""
-    ### ⚡ Executive Summary
-    **VOLTA** forecasts Spain's actual electricity price (`price actual`) for each of the next 24 hours, so people can run their devices in the cheapest hours.
-
-    ---
-
-    ### 🧠 Machine Learning Model
-    * **Model:** Keras LSTM + `is_weekend` feature (168h input window $\\rightarrow$ 24h forecast).
-    * **Training:** 2015–2017 · **Test:** 2018 (never seen during training).
-    * **Performance (Test 2018):** **MAE = {lstm_mae:.2f} EUR/MWh** vs Lag-24 baseline MAE = {lag24_mae:.2f} EUR/MWh — **{gain:.1f}% more accurate**.
-    """)
-
-  st.markdown("### 📊 Test 2018: Model vs Baselines")
-  # The LSTM is not compared with itself, so show "—" instead of an empty value
-  table = scores.round(2)
-  table["LSTM improvement (%)"] = table["LSTM improvement (%)"].map(
-      lambda v: "—" if pd.isna(v) else f"{v:.1f}%"
+  # same purple bolt as the sidebar
+  with st.container(horizontal=True, vertical_alignment="center", gap="small"):
+    st.image(BOLT_ICON, width=44)
+    st.title("About VOLTA", anchor=False)
+  st.markdown(":green[**Predict Energy. Plan Smarter.**]")
+  st.markdown(
+      "VOLTA forecasts Spain's hourly electricity price for the next 24 hours and"
+      " turns the forecast into a simple recommendation: the cheapest time to run"
+      " your devices."
   )
-  st.dataframe(
-      table,
-      width="stretch",
-      column_config={
-          "MAE": st.column_config.NumberColumn("MAE (EUR/MWh)", format="%.2f"),
-          "RMSE": st.column_config.NumberColumn("RMSE (EUR/MWh)", format="%.2f"),
-          "LSTM improvement (%)": st.column_config.TextColumn(),
-      },
+
+  st.subheader("Why VOLTA?")
+  info_cards([
+      ("💡", "The problem",
+       "Electricity prices change every hour. They are lower at night and higher"
+       " in the evening, but most people cannot see these changes in advance."),
+      ("🎯", "Our solution",
+       "VOLTA predicts the price for each hour of the next day and shows when"
+       " electricity is cheapest, in one clear chart."),
+      ("👥", "Who it helps",
+       "Families, electric car owners and small businesses that can choose when"
+       " to run devices such as washing machines, dishwashers or chargers."),
+  ])
+
+  st.subheader("How it works")
+  info_cards([
+      ("1️⃣", "Learn from the past",
+       "VOLTA looks at the electricity prices of the last seven days, hour by hour."),
+      ("2️⃣", "Forecast tomorrow",
+       "A deep learning model predicts the price for each of the next 24 hours."),
+      ("3️⃣", "Plan smarter",
+       "Enter your device's power and running time, and VOLTA finds the cheapest"
+       " time to start."),
+  ])
+
+  st.subheader("Meet the team")
+  team = ["Rahaf Alrehaili", "Ayah Qalo", "Mohammed Alyami", "Ghadi Alrashdi"]
+  for col, name in zip(st.columns(len(team)), team):
+    initials = "".join(part[0] for part in name.split())
+    with col, st.container(border=True):
+      st.html(
+          f"""
+          <div style="text-align:center;">
+            <div style="width:48px; height:48px; margin:0 auto 8px; border-radius:50%;
+                        background:linear-gradient(135deg, #8B5CF6, #4FD1A5);
+                        display:flex; align-items:center; justify-content:center;
+                        font-weight:700; color:#ffffff;">{initials}</div>
+            <div style="font-weight:600; font-size:14px;">{name}</div>
+          </div>
+          """
+      )
+
+  st.subheader("Project details")
+  info_cards([
+      ("🎓", "Program", "SDA × Le Wagon Data Science & AI Bootcamp, October 2026."),
+      ("📊", "Data",
+       "Hourly energy and price data for Spain, 2015–2018, from"
+       " [Kaggle](https://www.kaggle.com/datasets/nicholasjhana/energy-consumption-generation-prices-and-weather)."),
+      ("💻", "Code",
+       "Built with Python, TensorFlow and Streamlit. Source code on"
+       " [GitHub](https://github.com/Ghadi213/volta)."),
+  ])
+
+  st.info(
+      "This demo uses historical data from 2018. Prices are Spanish wholesale"
+      " prices in EUR/MWh and do not include taxes or network fees.",
+      icon="ℹ️",
   )
