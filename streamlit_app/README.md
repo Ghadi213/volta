@@ -8,18 +8,13 @@ Every number in the app is computed from the model's predictions.
 
 ```
 streamlit_app/
-├─ app.py                      Entry point: defines the pages
+├─ app.py                      The app: forecast & device optimizer, forecast insights, about
 ├─ requirements.txt
 ├─ .streamlit/config.toml      Theme (presentation colours)
 ├─ data/volta_clean_hourly.csv Hourly dataset
 ├─ models/
 │  ├─ volta_lstm_final.keras   Final LSTM
 │  └─ volta_scaler_final.pkl   MinMaxScaler fitted on 2015–2017
-├─ app_pages/
-│  ├─ forecast.py              Pick a day: forecast vs real price + cheapest hours tool
-│  ├─ results.py               Test 2018 metrics and baselines
-│  ├─ patterns.py              Daily and weekly price patterns
-│  └─ about.py                 Project summary
 └─ volta/
    ├─ forecast.py              Model inputs, predictions, metrics, find_cheapest_hours (no Streamlit)
    └─ cache.py                 Loads data/model once and caches the predictions
