@@ -23,6 +23,24 @@ VOLTA is a time-series forecasting project that predicts Spain's actual electric
 
 We trained and compared LSTM and GRU models on historical prices, tested them against simple baselines, and built an interactive Streamlit dashboard that shows the 24-hour forecast and suggests the cheapest time to run a device.
 
+<p align="center">
+  <a href="https://xc6yrh3qvv8sbyvwziuvte.streamlit.app/"><img src="https://static.streamlit.io/badges/streamlit_badge_black_white.svg" alt="Open the live dashboard in Streamlit"></a>
+</p>
+
+## Data
+
+- **Source:** [Kaggle — Energy consumption, generation, prices and weather in Spain](https://www.kaggle.com/datasets/nicholasjhana/energy-consumption-generation-prices-and-weather)
+- **Period:** 2015–2018, hourly (35,064 hours)
+- **Contents:** electricity generation, demand and price for Spain, plus weather for its five largest cities
+
+## Approach
+
+- **Target:** `price actual`, Spain's hourly electricity price (€/MWh)
+- **Input:** the previous 168 hours (7 days) of prices, plus `is_weekend`
+- **Output:** 24 hourly prices, forecast once a day at 00:00 UTC
+- **Split by time:** train 2015–2016, validation 2017, test 2018
+- **Model selection:** LSTM vs GRU, feature engineering, then hyperparameter tuning
+
 ## Results
 
 The final model is an **LSTM with an `is_weekend` feature**, trained on 2015–2017 and tested on 2018, a year it never saw.
@@ -35,19 +53,6 @@ The final model is an **LSTM with an `is_weekend` feature**, trained on 2015–2
 | Last value | 7.44 |
 
 On average, the forecast is about 4 € away from the real price, which is **22.5% more accurate than the best baseline (Lag-24)**.
-
-## Data
-
-- **Source:** [Kaggle — Energy consumption, generation, prices and weather in Spain](https://www.kaggle.com/datasets/nicholasjhana/energy-consumption-generation-prices-and-weather)
-- **Period:** 2015–2018, hourly (35,064 hours)
-- **Target:** `price actual` (€/MWh)
-
-## Approach
-
-- **Input:** the previous 168 hours (7 days) of prices, plus `is_weekend`
-- **Output:** 24 hourly prices, forecast once a day at 00:00 UTC
-- **Split by time:** train 2015–2016, validation 2017, test 2018
-- **Model selection:** LSTM vs GRU, feature engineering, then hyperparameter tuning
 
 ## Project Structure
 
@@ -121,7 +126,9 @@ Run them in this order: `data_quality` → `data_preparation` → `eda` → `fea
 
 ### 5. Run the dashboard
 
-The app does not need the Kaggle download: its data and trained model are already in `streamlit_app/`.
+> **Just want to see it?** The dashboard is live at **[xc6yrh3qvv8sbyvwziuvte.streamlit.app](https://xc6yrh3qvv8sbyvwziuvte.streamlit.app/)**, no installation needed.
+
+To run it on your own machine: the app does not need the Kaggle download: its data and trained model are already in `streamlit_app/`.
 
 ```bash
 cd streamlit_app
