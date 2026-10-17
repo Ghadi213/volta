@@ -35,13 +35,11 @@ On average, the forecast is about 4 € away from the real price, which is **22.
 ```
 volta/
 ├─ notebooks/
-│  ├─ day1-eda.ipynb                            Exploratory data analysis
-│  ├─ day1-trackc-data-quality.ipynb            Data quality checks
-│  ├─ 02_track_c_data_quality_mohammed.ipynb    Data quality checks
-│  ├─ day2-trackb-lstm-gru.ipynb                First LSTM and GRU models
-│  ├─ day3-gru-lstm-feature-experiments.ipynb   Feature experiments
-│  ├─ track_d_windows.ipynb                     Input/target window creation
-│  └─ 04_models.ipynb                           Final modeling: baselines, LSTM/GRU, tuning, test 2018
+│  ├─ data_quality.ipynb                        Data quality checks on the raw data
+│  ├─ data_preparation.ipynb                    Cleaning; creates data/processed/volta_clean_hourly.csv
+│  ├─ eda.ipynb                                 Exploratory data analysis
+│  ├─ feature_experiments.ipynb                 LSTM/GRU feature experiments
+│  └─ final_model.ipynb                         Final modeling: baselines, LSTM/GRU, tuning, test 2018
 ├─ streamlit_app/                               Interactive dashboard
 ├─ README.md
 └─ requirements.txt

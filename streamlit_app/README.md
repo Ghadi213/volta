@@ -1,7 +1,7 @@
 # VOLTA – Streamlit App
 
 Predicting tomorrow's electricity price in Spain. The app runs the final model from
-`notebooks/04_models.ipynb` (LSTM + `is_weekend`, trained on 2015–2017, tested on 2018).
+`notebooks/final_model.ipynb` (LSTM + `is_weekend`, trained on 2015–2017, tested on 2018).
 Every number in the app is computed from the model's predictions.
 
 ## Folder structure

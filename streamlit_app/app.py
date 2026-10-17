@@ -60,7 +60,7 @@ st.markdown(
 
 
 # ---------------------------------------------------------
-# Data & Model: the final LSTM from notebooks/04_models.ipynb
+# Data & Model: the final LSTM from notebooks/final_model.ipynb
 # (same data, model and scaler as app.py, through volta/cache.py)
 # ---------------------------------------------------------
 MODEL_COLUMNS = {

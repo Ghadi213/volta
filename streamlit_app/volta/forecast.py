@@ -1,5 +1,5 @@
 """
-The final VOLTA model, run exactly like notebooks/04_models.ipynb (Step 15).
+The final VOLTA model, run exactly like notebooks/final_model.ipynb (Step 15).
 
 - Input 1: the past 168 hours of [scaled price, is_weekend]
 - Input 2: is_weekend for the 24 hours being forecast
